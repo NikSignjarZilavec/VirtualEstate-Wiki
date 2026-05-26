@@ -1,2 +1,1 @@
-Initialization
-Documentation update test
+Testing the documentation
