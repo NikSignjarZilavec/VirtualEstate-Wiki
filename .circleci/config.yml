@@ -5,14 +5,17 @@ jobs:
     docker:
       - image: cimg/base:current
     steps:
-      - checkout
+      - run:
+          name: Full clone source repo
+          command: |
+            git clone https://${GITHUB_API_KEY}@github.com/NikSignjarZilavec/VirtualEstate-Wiki.git source
       - run:
           name: Push to original project wiki
+          working_directory: source
           command: |
             git config user.email "${GITHUB_EMAIL}"
             git config user.name "${GITHUB_USERNAME}"
-            git remote remove origin
-            git remote add origin https://${GITHUB_API_KEY}@github.com/andrej-nemanic/VirtualEstate_Project.wiki.git > /dev/null 2>&1
+            git remote set-url origin https://${GITHUB_API_KEY}@github.com/andrej-nemanic/VirtualEstate_Project.wiki.git
             git push --force origin main:master
 
 workflows:
