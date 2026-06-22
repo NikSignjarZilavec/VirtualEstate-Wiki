@@ -15,7 +15,7 @@ Ta stran vsebuje vsa navodila, ki jih novi uporabnik potrebuje za **zagon sistem
 | **Docker** + **Docker Compose** | poljubna | priporočeno za hitri zagon |
 | **Brskalnik** | Chrome, Firefox, Edge, Safari (zadnji 2 različici) | za WebClient |
 
-> 💡 Če nimaš nameščenega vsega zgoraj naštetega, lahko spletni del (storitev + vmesnik) poženeš samo z **Docker** + **Git** prek `docker compose` (poglavje 2.3). Potrebuješ le še dostopno **MongoDB bazo** (lokalno ali brezplačni MongoDB Atlas), saj je `docker-compose.yml` ne vključuje.
+> **Opomba:** Če nimaš nameščenega vsega zgoraj naštetega, lahko spletni del (storitev + vmesnik) poženeš samo z **Docker** + **Git** prek `docker compose` (poglavje 2.3). Potrebuješ le še dostopno **MongoDB bazo** (lokalno ali brezplačni MongoDB Atlas), saj je `docker-compose.yml` ne vključuje.
 
 ## 2.2 Pridobivanje izvorne kode
 
@@ -124,7 +124,7 @@ export VIRTUALESTATE_API_URL=http://localhost:3000/api/
 ./gradlew :composeApp:run
 ```
 
-> 💡 Privzeta vrednost je definirana v `ApiClient.kt`. Manjkajočo zaključno poševnico (`/`) aplikacija doda samodejno.
+> **Opomba:** Privzeta vrednost je definirana v `ApiClient.kt`. Manjkajočo zaključno poševnico (`/`) aplikacija doda samodejno.
 
 ## 2.5 Prva prijava
 

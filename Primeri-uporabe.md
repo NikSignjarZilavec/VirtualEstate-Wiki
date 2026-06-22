@@ -68,7 +68,7 @@ Investitor želi videti **vse nepremičnine v določenem kraju** (npr. v polmeru
    - `?near=lng,lat,radius_v_metrih` (krog)
 
 4. **Vmesnik** prikaže modro obvestilo:
-   > 📍 Aktivno območje na zemljevidu (krog) — prikazani so samo zadetki znotraj.
+   > Aktivno območje na zemljevidu (krog) — prikazani so samo zadetki znotraj.
 
 5. **Pregled v seznamu** — paginiran seznam pod zemljevidom prikaže samo zadetke v izbrani regiji.
 
@@ -117,7 +117,7 @@ Administrator (npr. nepremičninska agencija) želi v sistem dodati nov oglas, k
 5. **Klikni** **Ustvari**.
 
 6. **V trenutku** se v tabeli pod obrazcem pojavi nova vrstica. Hkrati se broadcast prek WebSocket-a sproži in vsi drugi aktivni odjemalci (vključno z navadnimi uporabniki na nadzorni plošči) takoj vidijo nov marker na zemljevidu in **toast obvestilo**:
-   > ✓ Nova nepremičnina: Stanovanje v Ljubljana
+   > Nova nepremičnina: Stanovanje v Ljubljana
 
 7. **Urejanje** — klikni **Uredi** v vrstici. Odpre se isti obrazec, pred-izpolnjen z obstoječimi vrednostmi.
 

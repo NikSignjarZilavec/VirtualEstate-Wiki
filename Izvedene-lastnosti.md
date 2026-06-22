@@ -78,9 +78,9 @@ Nič posebnega — vse je avtomatsko. Ko uporabnik odpre spletni vmesnik, se Soc
 1. **Posodobitev seznama** brez refresha.
 2. **Posodobitev zemljevida** (marker se doda/posodobi/izbriše).
 3. **Toast obvestilo** v desnem spodnjem kotu:
-   - ✓ Zeleno za **create** (success)
-   - ℹ Modro za **update** (info)
-   - ⚠ Oranžno za **delete** (warning)
+   - **Zeleno** za *create* (uspeh)
+   - **Modro** za *update* (informacija)
+   - **Oranžno** za *delete* (opozorilo)
 
 Vsak toast ima ikono in 2.5–3.5 sekundno trajanje.
 
@@ -318,9 +318,9 @@ Zgornjih 8 funkcionalnosti pokriva vse **obvezne** in **razširjene** zahteve iz
 
 Funkcionalnosti, ki so bile **odložene** ali **izven obsega** projekta:
 
-- ❌ **Cron auto-scraping** — strežniško periodično razčlenjevanje. Odloženo za naslednji semester.
-- ❌ **Pozabljeno geslo** — reset prek e-pošte. Izven obsega prve verzije.
-- ❌ **Animirane vizualizacije skozi čas** — predvidoma povezano z `priceHistory` modelom v naslednjem semestru.
-- ❌ **Več slik na nepremičnino** — model trenutno hrani le `imageUrl: String`.
+- **Cron auto-scraping** — strežniško periodično razčlenjevanje. Odloženo za naslednji semester.
+- **Pozabljeno geslo** — reset prek e-pošte. Izven obsega prve verzije.
+- **Animirane vizualizacije skozi čas** — predvidoma povezano z `priceHistory` modelom v naslednjem semestru.
+- **Več slik na nepremičnino** — model trenutno hrani le `imageUrl: String`.
 
 Te funkcionalnosti so dokumentirane v razdelku **1.6 Razširitveni načrt** [Projektnih specifikacij](Projektne-specifikacije).
