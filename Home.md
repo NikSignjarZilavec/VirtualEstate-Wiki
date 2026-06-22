@@ -1,6 +1,6 @@
 # VirtualEstate — Digitalni dvojček nepremičninskega trga
 
-VirtualEstate je študentski projekt, razvit v sklopu predmetov **Spletno programiranje**, **Principi programskih jezikov** in **Sistemska administracija** na **FERI**. Projekt predstavlja digitalni dvojček slovenskega nepremičninskega trga — sistem, ki združuje **podatke iz javnih spletnih virov** (oglasniki nepremičnin) in **ročno vnesene podatke** v enotno bazo, jih vizualizira na zemljevidu in v grafih ter omogoča realnočasovno spremljanje sprememb.
+VirtualEstate je študentski projekt, razvit v sklopu predmetov **Spletno programiranje**, **Principi programskih jezikov** in **Sistemska administracija** na **FERI**. Projekt predstavlja digitalni dvojček slovenskega nepremičninskega trga, sistem, ki združuje **podatke iz javnih spletnih virov** (oglasniki nepremičnin) in **ročno vnesene podatke** v enotno bazo, jih vizualizira na zemljevidu in v grafih ter omogoča realnočasovno spremljanje sprememb.
 
 ## Komponente sistema
 
@@ -19,7 +19,7 @@ Glavna dokumentacija je razdeljena na štiri sklope:
 3. [Ključni primeri uporabe](Primeri-uporabe) — pet scenarijev z navodili po korakih
 4. [Dokumentacija izvedenih lastnosti](Izvedene-lastnosti) — opis ključnih implementiranih funkcionalnosti
 
-Za hiter pregled vseh strani odpri [Projektno dokumentacijo](Documentation).
+Pregled vseh strani: [Projektno dokumentacijo](Documentation).
 
 ## Repozitorij in povezave
 

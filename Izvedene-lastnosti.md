@@ -73,7 +73,7 @@ socket.on('propertyCreated', p => {
 ```
 
 ### Način uporabe
-Nič posebnega — vse je avtomatsko. Ko uporabnik odpre spletni vmesnik, se Socket.IO klient samodejno poveže. Vsaka sprememba (iz admin vmesnika ali namizne aplikacije) sproži:
+Ko uporabnik odpre spletni vmesnik, se Socket.IO klient samodejno poveže. Vsaka sprememba (iz admin vmesnika ali namizne aplikacije) sproži:
 
 1. **Posodobitev seznama** brez refresha.
 2. **Posodobitev zemljevida** (marker se doda/posodobi/izbriše).
@@ -103,9 +103,8 @@ Iskanje "nepremičnine v polmeru 2 km od te točke" ali "nepremičnine znotraj o
 
 **Frontend** (`WebClient/src/components/PropertyMap.jsx`):
 - Uporablja `leaflet-draw` (CDN CSS + import JS) za risarsko orodno vrstico.
-- `L.Control.Draw` konfiguriran z dovoljenimi oblikami: `rectangle`, `polygon`, `circle`. Marker, polyline, circlemarker so onemogočeni.
+- `L.Control.Draw` konfiguriran z dovoljenima oblikama: `polygon`, `circle`. Pravokotnik (`rectangle: false`), marker, polyline in circlemarker so onemogočeni.
 - Po dogodku `L.Draw.Event.CREATED`:
-  - Pravokotnik → `bounds.getWest/South/East/North` → `bbox`
   - Poligon → `getLatLngs()` → niz `lng,lat` parov ločenih z `;`
   - Krog → središče + radij v metrih → `near`
 - Callback `onAreaSelected({ type, value })` posodobi URL parameter prek `useSearchParams` v `Dashboard.jsx`.
@@ -116,8 +115,8 @@ Iskanje "nepremičnine v polmeru 2 km od te točke" ali "nepremičnine znotraj o
 - `react-leaflet-cluster` markerji ostanejo nespremenjeni (njihove barve so kustomizirane prek `divIcon`).
 
 ### Način uporabe
-1. Na nadzorni plošči poišči orodno vrstico v zgornjem desnem kotu zemljevida (3 ikone).
-2. Izberi obliko, klikni in povleci za risanje.
+1. Na nadzorni plošči poiščite orodno vrstico v zgornjem desnem kotu zemljevida (2 ikoni).
+2. Izberite obliko, kliknite in povlecite za risanje.
 3. Po končanem risanju se URL takoj posodobi (`?near=14.5,46.1,2000`) in seznam se filtrira.
 4. Za brisanje: gumb **Počisti območje** v modrem obvestilu ali ikona smetnjaka v orodni vrstici.
 
@@ -154,7 +153,7 @@ Escape funkcija:
 - Input je v `<div className="search-field">` z absolutno pozicionirano ikono in left-padding na input.
 
 ### Način uporabe
-1. V iskalno polje na nadzorni plošči vnesi besedo (npr. `balkon`).
+1. V iskalno polje na nadzorni plošči vnesite besedo (npr. `balkon`).
 2. URL se posodobi v `?description=balkon`.
 3. Vmesnik prikaže samo nepremičnine, ki imajo `balkon` (case-insensitive) v `description` polju.
 4. Kombinacija več filtrov: vse so v AND povezavi (`description=balkon&city=Maribor&maxPrice=200000`).
@@ -196,11 +195,11 @@ Ročno vnašanje nepremičnin v bazo bi bilo prepočasno. Sistem mora samodejno 
 - `PropertyController.ingestCreate` shrani zapis, geokodira manjkajoče koordinate prek Nominatim, broadcasta WebSocket event.
 
 ### Način uporabe
-1. V namizni aplikaciji odpri **Pridobi s spleta**.
-2. Klikni **Pridobi podatke**. Po nekaj sekundah se naloži 30–60 zapisov.
-3. Po želji filtriraj, sortiraj, označi.
-4. Klikni **Pošlji v bazo**.
-5. Preveri v spletnem vmesniku — zapisi se pojavijo z oznako vira (`badge: nepremicnina.si` ali `24nep.si`).
+1. V namizni aplikaciji odprite **Pridobi s spleta**.
+2. Kliknite **Pridobi podatke**. Po nekaj sekundah se naloži 20–60 zapisov.
+3. Po želji filtrirajte, sortirajte, označite.
+4. Kliknite **Pošlji v bazo**.
+5. Preverite v spletnem vmesniku — zapisi se pojavijo z oznako vira (`badge: nepremicnina.si` ali `24nep.si`).
 
 ---
 
@@ -234,11 +233,11 @@ Funkcija `generate(count, priceRange, sizeRange)`:
 - Po pošiljanju se zapisi avtomatsko počistijo iz lokalnega state-a.
 
 ### Način uporabe
-1. V namizni aplikaciji odpri **Generator podatkov**.
-2. Nastavi parametre (npr. 50 zapisov, cena 50k–500k €, velikost 30–200 m²).
-3. Klikni **Generiraj** — zapisi se v trenutku pojavijo.
-4. Po želji odznači tiste, ki ti niso všeč.
-5. Klikni **Pošlji v bazo**.
+1. V namizni aplikaciji odprite **Generator podatkov**.
+2. Nastavite parametre (npr. 50 zapisov, cena 50k–500k €, velikost 30–200 m²).
+3. Kliknite **Generiraj** — zapisi se v trenutku pojavijo.
+4. Po želji odznačite tiste, ki vam niso všeč.
+5. Kliknite **Pošlji v bazo**.
 
 ---
 
@@ -269,9 +268,9 @@ Vsi grafi:
 - **FitBounds**: ko uporabnik prvič odpre stran ali počisti območni filter, se zemljevid avtomatsko zoom-a, da prikaže vse markerje.
 
 ### Način uporabe
-1. **Grafi**: klikni gumb **Grafi in statistike** na nadzorni plošči. Razširi se panel z tremi grafi.
-2. Preklopi med **Prodaja** in **Oddaja** s segmented control-om.
-3. Skrij ali pokaži posamezne grafe s klikom na chip.
+1. **Grafi**: kliknite gumb **Grafi in statistike** na nadzorni plošči. Razširi se panel z tremi grafi.
+2. Preklopite med **Prodaja** in **Oddaja** s segmented control-om.
+3. Skrijte ali pokažite posamezne grafe s klikom na chip.
 4. **Zemljevid**: scroll za zoom, drag za premik, klik na marker za popup. Cluster se razdeli ob zadostnem zoom-u.
 
 ---
@@ -306,9 +305,9 @@ Sodobni vmesniki morajo prilagajati izgled tako uporabnikovim preferencam (dark/
 - `aria-expanded` na collapsible expandable elementih
 
 ### Način uporabe
-1. **Preklop teme**: klikni ikono sonca/lune v desnem zgornjem kotu navigacije.
+1. **Preklop teme**: kliknite ikono sonca/lune v desnem zgornjem kotu navigacije.
 2. Izbira se shrani; pri naslednjem obisku je tema avtomatsko upoštevana.
-3. **Mobile**: odpri spletni vmesnik na telefonu ali zmanjšaj okno brskalnika pod 768 px — navigacija postane burger meni, vsi elementi se zložijo v ena stolpca.
+3. **Mobile**: odprite spletni vmesnik na telefonu ali zmanjšajte okno brskalnika pod 768 px — navigacija postane burger meni, vsi elementi se zložijo v en stolpec.
 
 ---
 
@@ -322,5 +321,3 @@ Funkcionalnosti, ki so bile **odložene** ali **izven obsega** projekta:
 - **Pozabljeno geslo** — reset prek e-pošte. Izven obsega prve verzije.
 - **Animirane vizualizacije skozi čas** — predvidoma povezano z `priceHistory` modelom v naslednjem semestru.
 - **Več slik na nepremičnino** — model trenutno hrani le `imageUrl: String`.
-
-Te funkcionalnosti so dokumentirane v razdelku **1.6 Razširitveni načrt** [Projektnih specifikacij](Projektne-specifikacije).

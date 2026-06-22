@@ -1,6 +1,6 @@
 # Projektna dokumentacija
 
-Dokumentacija projekta **VirtualEstate** je strukturirana skladno s standardnimi smernicami za pripravo zaključne dokumentacije študentskega projekta. Obsega štiri ločene sklope, ki skupaj pokrivajo vse vidike rešitve — od specifikacij in arhitekture do operativnih navodil in pregleda izvedenih funkcionalnosti.
+Dokumentacija projekta **VirtualEstate** je strukturirana skladno s standardnimi smernicami za pripravo zaključne dokumentacije študentskega projekta. Obsega štiri ločene sklope, ki skupaj pokrivajo vse vidike rešitve, od specifikacij in arhitekture do operativnih navodil in pregleda izvedenih funkcionalnosti.
 
 ## Vsebina
 
@@ -11,7 +11,7 @@ Opredelitev namena študentskega projekta, ciljnih skupin uporabnikov in njihovi
 Korak-za-korakom navodilo za zagon vseh treh komponent (spletna storitev, spletni vmesnik, namizna aplikacija), pripravo okolja in prvo prijavo uporabnika.
 
 ### 3. [Ključni primeri uporabe](Primeri-uporabe)
-Pet najpogostejših scenarijev uporabe rešitve, predstavljenih v obliki kratkih navodil (angl. *tutorial*) — kaj uporabnik želi narediti, koraki izvedbe in pričakovani rezultat.
+Pet najpogostejših scenarijev uporabe rešitve, predstavljenih v obliki kratkih navodil (angl. *tutorial*),  kaj uporabnik želi narediti, koraki izvedbe in pričakovani rezultat.
 
 ### 4. [Dokumentacija izvedenih lastnosti](Izvedene-lastnosti)
 Podroben opis ključnih implementiranih funkcionalnosti (feature/issue) s pojasnjenim namenom, načinom implementacije in navodili za uporabo.
@@ -31,4 +31,4 @@ Poleg te wiki dokumentacije so v glavnem repozitoriju shranjena tudi naslednja g
 
 - Vsi izrazi so zapisani v slovenščini, razen tehničnih imen knjižnic, končnic in identifikatorjev.
 - Kode v code blockih so testirani na Windows 11 in Ubuntu 22.04 z Dockerjem.
-- Vsi `git` ukazi predpostavljajo, da uporabljaš HTTPS s personal access tokenom ali SSH ključem.
+- Vsi `git` ukazi predpostavljajo, da uporabljamo HTTPS s personal access tokenom ali SSH ključem.

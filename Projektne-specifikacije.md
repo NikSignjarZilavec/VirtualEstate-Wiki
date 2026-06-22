@@ -6,7 +6,7 @@
 
 Projekt naslavlja dva temeljna problema:
 
-1. **Razdrobljenost trga.** Nepremičnine v Sloveniji oglašuje več neodvisnih portalov (`nepremicnina.si`, `24nep.si`, `bolha.com`, `nepremicnine.net` …). Iskanje po več portalih hkrati je zamudno, primerjava cen in lastnosti pa otežena.
+1. **Razdrobljenost trga.** Nepremičnine v Sloveniji oglašuje več neodvisnih portalov (`nepremicnina.si`, `24nep.si`, …). Iskanje po več portalih hkrati je zamudno, primerjava cen in lastnosti pa otežena.
 2. **Pomanjkanje vizualizacij.** Večina oglasnih portalov ponuja zgolj seznamski prikaz, brez naprednih grafov ali zemljevida z območnimi filtri, ki bi uporabniku omogočili razumevanje trga kot celote.
 
 ### 1.1.1 Skupine uporabnikov in njihove potrebe
@@ -39,7 +39,7 @@ VirtualEstate sestavljajo **tri komponente**, ki komunicirajo prek REST API in W
 | Centralizacija razpršenih podatkov | Namizna aplikacija razčlenjuje (web scraping) podatke iz dveh slovenskih oglasnikov in jih prek REST endpointa (`POST /api/properties/ingest`) shrani v skupno MongoDB bazo. |
 | Hitro filtriranje | Spletni vmesnik ponuja URL-sinhrone filtre (vrsta, regija, mesto, cena, velikost, opis) z odzivnim seznamom. |
 | Iskanje po besednih nizih v opisu | Backend uporablja MongoDB `$regex` z escape-om meta-znakov za varno iskanje (npr. "balkon"). |
-| Vizualizacija na zemljevidu | Leaflet zemljevid s clustering markerji in možnostjo risanja območja (`pravokotnik`, `poligon`, `krog`); poizvedba uporabi `$geoWithin` in `$centerSphere` MongoDB operatorja. |
+| Vizualizacija na zemljevidu | Leaflet zemljevid s clustering markerji in možnostjo risanja območja (`poligon`, `krog`); poizvedba uporabi `$geoWithin` in `$centerSphere` MongoDB operatorja. |
 | Analitične vizualizacije | Recharts grafi: število nepremičnin po tipu (pita), povprečna cena po tipu (stolpčni), razmerje cena-velikost (raztreseni). |
 | Realnočasovne posodobitve | Socket.IO broadcasti dogodke `propertyCreated`, `propertyUpdated`, `propertyDeleted` vsem aktivnim odjemalcem. |
 | Ročno upravljanje baze | Spletni admin vmesnik in namizna aplikacija s polnim CRUD-om za nepremičnine in uporabnike. |
@@ -72,7 +72,7 @@ VirtualEstate sestavljajo **tri komponente**, ki komunicirajo prek REST API in W
 | FZ-2.2 | Filtriranje po vrsti, ponudbi, regiji, mestu, ceni, velikosti, opisu | OBVEZNO |
 | FZ-2.3 | URL-sinhroni filtri (deljive povezave) | OBVEZNO |
 | FZ-2.4 | Interaktivni zemljevid (Leaflet) z markerji in clustering | OBVEZNO |
-| FZ-2.5 | Risanje območja (pravokotnik, poligon, krog) za geo-filter | OBVEZNO |
+| FZ-2.5 | Risanje območja (poligon, krog) za geo-filter | OBVEZNO |
 | FZ-2.6 | Grafi: pita po tipu, stolpčni po cenah, raztreseni cena-velikost | OBVEZNO |
 | FZ-2.7 | Administrativni vmesnik z CRUD-om in iskanjem | OBVEZNO |
 | FZ-2.8 | Realnočasovne posodobitve prek WebSocket-a | OBVEZNO |
@@ -100,7 +100,7 @@ VirtualEstate sestavljajo **tri komponente**, ki komunicirajo prek REST API in W
 |---|---|
 | **Varnost** | Gesla so shranjena z `bcrypt` (cost 10). JWT podpisan z `HS256`. Prijavni endpoint omejen z rate-limit-om. Vsi regex inputi so escape-ani. |
 | **Performanca** | MongoDB indeksi nad poljami `email` (unique) in `coordinates` (2dsphere). Geo-poizvedbe na realnih datasetih ≤ 100 ms. Spletni vmesnik nalaganje pod 2 s na 4G. |
-| **Skalabilnost** | Stateless API; horizontalno skaliranje prek Docker/Kubernetes. Socket.IO podpira Redis adapter (predvideno za naslednji semester). |
+| **Skalabilnost** | Stateless API; horizontalno skaliranje prek Docker/Kubernetes. Socket.IO. |
 | **Razširljivost** | Mongoose modeli omogočajo enostavno dodajanje atributov (npr. `priceHistory`, `images`). REST endpointi sledijo standardnemu vzorcu. |
 | **Združljivost** | Spletni vmesnik testiran na Chrome, Firefox, Edge in Safari. Namizna aplikacija deluje na Windows, macOS in Linux (JVM 17+). |
 | **Razpoložljivost** | Storitev je razmeščena na Microsoft Azure z avtomatičnim CI/CD prek GitHub Actions in DockerHub. |
@@ -141,17 +141,7 @@ VirtualEstate sestavljajo **tri komponente**, ki komunicirajo prek REST API in W
 - **Microsoft Azure** — deployment
 - **MongoDB Atlas** — managed baza (opcijsko)
 
-## 1.6 Razširitveni načrt (za naslednji semester)
-
-Podatkovni model in arhitektura sta zasnovana z mislijo na enostavno razširitev. Predvidena nadaljevanja vključujejo:
-
-- **Zgodovina cen** — nova kolekcija `priceHistory` z referenco na `Property`, kar omogoči časovne animacije sprememb cen.
-- **Cron auto-scraping** — strežniški scheduler, ki periodično poganja razčlenjevanje brez interakcije uporabnika.
-- **Pozabljeno geslo** — e-poštni reset tokeni z omejeno veljavnostjo.
-- **Več slik na nepremičnino** — sprememba `imageUrl: String` v `images: [String]`.
-- **Mobilna aplikacija** — Kotlin Multiplatform `androidMain` ciljna platforma.
-
-## 1.7 Slovar pojmov in kratic
+## 1.6 Slovar pojmov in kratic
 
 | Pojem / kratica | Pomen |
 |---|---|
@@ -171,7 +161,7 @@ Podatkovni model in arhitektura sta zasnovana z mislijo na enostavno razširitev
 | **FZ-x.x** | Oznaka funkcionalne zahteve v tem dokumentu (poglavje 1.3). |
 | **SCRUM-XX** | Oznaka Jira podopravila (issue), prek katere sledimo implementaciji. |
 
-## 1.8 Sledljivost zahtev (traceability)
+## 1.7 Sledljivost zahtev (traceability)
 
 Spodnja tabela povezuje **funkcionalne zahteve** (poglavje 1.3) s **primeri uporabe** ([Primeri uporabe](Primeri-uporabe)) in **izvedenimi lastnostmi** ([Izvedene lastnosti](Izvedene-lastnosti)). Tako je mogoče preveriti pokritost vsake zahteve od specifikacije do implementacije.
 
