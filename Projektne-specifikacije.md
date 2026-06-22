@@ -150,3 +150,38 @@ Podatkovni model in arhitektura sta zasnovana z mislijo na enostavno razširitev
 - **Pozabljeno geslo** — e-poštni reset tokeni z omejeno veljavnostjo.
 - **Več slik na nepremičnino** — sprememba `imageUrl: String` v `images: [String]`.
 - **Mobilna aplikacija** — Kotlin Multiplatform `androidMain` ciljna platforma.
+
+## 1.7 Slovar pojmov in kratic
+
+| Pojem / kratica | Pomen |
+|---|---|
+| **SPA** | Single-Page Application — spletni vmesnik, ki teče v eni naloženi strani (React + Vite). |
+| **REST API** | Representational State Transfer — HTTP vmesnik za CRUD operacije nad viri. |
+| **WebSocket / Socket.IO** | Persistentna dvosmerna povezava za realnočasovne dogodke. |
+| **JWT** | JSON Web Token — podpisan žeton za stateless avtentikacijo. |
+| **CRUD** | Create, Read, Update, Delete — osnovne operacije nad zapisi. |
+| **ODM** | Object-Document Mapper (Mongoose) — preslikava med JS objekti in Mongo dokumenti. |
+| **2dsphere** | MongoDB geoprostorski indeks za poizvedbe nad koordinatami na sferi. |
+| **GeoJSON Point** | Format `{ type: 'Point', coordinates: [lng, lat] }` za shranjevanje lokacije. |
+| **Geokodiranje** | Pretvorba naslova (regija/mesto/naselje) v koordinate prek Nominatim API-ja. |
+| **Scraping** | Samodejno razčlenjevanje podatkov iz HTML strani spletnih virov. |
+| **Nominatim** | Brezplačni OpenStreetMap geokodirni servis. |
+| **Bounding box (bbox)** | Pravokotno geografsko območje, podano s štirimi koordinatami. |
+| **Ingest** | Vnos zapisov v bazo prek `/api/properties/ingest` endpointa (scraping/generator). |
+| **FZ-x.x** | Oznaka funkcionalne zahteve v tem dokumentu (poglavje 1.3). |
+| **SCRUM-XX** | Oznaka Jira podopravila (issue), prek katere sledimo implementaciji. |
+
+## 1.8 Sledljivost zahtev (traceability)
+
+Spodnja tabela povezuje **funkcionalne zahteve** (poglavje 1.3) s **primeri uporabe** ([Primeri uporabe](Primeri-uporabe)) in **izvedenimi lastnostmi** ([Izvedene lastnosti](Izvedene-lastnosti)). Tako je mogoče preveriti pokritost vsake zahteve od specifikacije do implementacije.
+
+| Funkcionalne zahteve | Primer uporabe | Izvedena lastnost |
+|---|---|---|
+| FZ-1.3, FZ-1.4, FZ-2.9 — avtentikacija, admin vloga, prijava/registracija | Primer 3 | Lastnost 1 |
+| FZ-1.5, FZ-2.8 — realnočasovne posodobitve (WebSocket) | Primer 3 | Lastnost 2 |
+| FZ-1.6, FZ-2.4, FZ-2.5 — geoprostorske poizvedbe, zemljevid, območni filter | Primer 2 | Lastnost 3 |
+| FZ-1.7, FZ-2.2 — iskanje po opisu z varnim regex | Primer 1 | Lastnost 4 |
+| FZ-3.2, FZ-3.3, FZ-3.5 — razčlenjevanje s spleta, filtriranje, REST komunikacija | Primer 4 | Lastnost 5 |
+| FZ-3.4 — generiranje testnih podatkov | Primer 5 | Lastnost 6 |
+| FZ-1.9, FZ-2.6 — agregatne statistike in grafi | Primer 1 | Lastnost 7 |
+| FZ-2.10, FZ-2.11 — temni/svetli način, odzivni vmesnik | vsi primeri (UI) | Lastnost 8 |

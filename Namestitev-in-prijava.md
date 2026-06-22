@@ -1,6 +1,6 @@
 # 2. Navodila za namestitev in prijavo v sistem
 
-Ta stran vsebuje vsa navodila, ki jih novi uporabnik potrebuje za **zagon sistema VirtualEstate** in **prvo prijavo**. Sistem je sestavljen iz treh komponent, ki lahko tečejo neodvisno; najlažji način zagona je prek `docker compose`, ki sproži vse hkrati. Spodaj sta opisana oba pristopa.
+Ta stran vsebuje vsa navodila, ki jih novi uporabnik potrebuje za **zagon sistema VirtualEstate** in **prvo prijavo**. Sistem je sestavljen iz treh komponent, ki lahko tečejo neodvisno; najlažji način zagona **spletnega dela** (storitev + vmesnik) je prek `docker compose`. Namizna aplikacija in MongoDB baza **nista del** `docker-compose.yml` datoteke. Spodaj sta opisana oba pristopa.
 
 ## 2.1 Sistemske zahteve
 
@@ -8,14 +8,14 @@ Ta stran vsebuje vsa navodila, ki jih novi uporabnik potrebuje za **zagon sistem
 |---|---|---|
 | **Node.js** | ≥ 20 LTS | za WebService in WebClient (ali samostojen Docker) |
 | **npm** | ≥ 10 | priložen Node.js |
-| **MongoDB** | ≥ 6 | lokalno ali MongoDB Atlas; Docker compose ga vključi |
+| **MongoDB** | ≥ 6 | lokalno ali MongoDB Atlas; **Docker compose je _ne_ vključuje** — nastaviti moraš `DATABASE_URL` |
 | **JDK** | ≥ 17 | za namizno aplikacijo (Compose Multiplatform JVM target) |
 | **Gradle** | ≥ 8.5 | priložen prek `gradlew` |
 | **Git** | poljubna | za clone repozitorija |
 | **Docker** + **Docker Compose** | poljubna | priporočeno za hitri zagon |
 | **Brskalnik** | Chrome, Firefox, Edge, Safari (zadnji 2 različici) | za WebClient |
 
-> 💡 Če nimaš nameščenega vsega zgoraj naštetega, lahko sistem poženeš samo z **Docker** + **Git** prek `docker compose` (poglavje 2.3).
+> 💡 Če nimaš nameščenega vsega zgoraj naštetega, lahko spletni del (storitev + vmesnik) poženeš samo z **Docker** + **Git** prek `docker compose` (poglavje 2.3). Potrebuješ le še dostopno **MongoDB bazo** (lokalno ali brezplačni MongoDB Atlas), saj je `docker-compose.yml` ne vključuje.
 
 ## 2.2 Pridobivanje izvorne kode
 
@@ -38,8 +38,10 @@ VirtualEstate_Project/
 
 ## 2.3 Hitri zagon prek Docker Compose (priporočeno)
 
-1. V korenu repozitorija odpri `docker-compose.yml` in preveri/spremeni okoljske spremenljivke:
-   - `DATABASE_URL` — povezava do Mongo
+`docker-compose.yml` zažene **dva** servisa — `web-service` (port 3000) in `web-client` (port 5173). **MongoDB ni del compose datoteke**, zato moraš pred zagonom zagotoviti dostopno bazo (lokalni Mongo ali MongoDB Atlas).
+
+1. Ustvari `WebService/.env` (npr. iz priloženega `WebService/.env.example`) in nastavi okoljski spremenljivki — compose ju naloži prek `env_file`:
+   - `DATABASE_URL` — povezovalni niz do MongoDB (npr. `mongodb://127.0.0.1:27017/virtual_estate` ali Atlas `mongodb+srv://…`)
    - `JWT_SECRET` — naključen niz znakov (npr. iz `openssl rand -hex 32`)
 2. Poženi:
 
@@ -48,9 +50,9 @@ VirtualEstate_Project/
    ```
 
 3. Po nekaj minutah bo dostopno:
-   - **WebClient**: http://localhost:5173
+   - **WebClient**: http://localhost:5173 (znotraj Dockerja prek `VITE_API_PROXY` cilja na `web-service:3000`)
    - **WebService API**: http://localhost:3000
-   - **MongoDB**: lokalni Mongo na portu 27017 (ali tvoj Atlas, če nastaviš `DATABASE_URL`)
+   - **MongoDB**: tam, kamor kaže tvoj `DATABASE_URL` (zunanja baza — compose je ne zažene)
 
 4. Za zaustavitev:
 
@@ -108,19 +110,21 @@ cd DesktopApplication
 
 (Na Windowsu uporabi `gradlew.bat`.)
 
-Aplikacija se odpre v ločenem oknu. Privzeto se povezuje na `http://localhost:3000/api/`. Če imaš WebService na drugem naslovu, nastavi okoljsko spremenljivko **pred** zagonom:
+Aplikacija se odpre v ločenem oknu. **Privzeto se povezuje na oddaljeni (deployan) backend** `http://68.210.138.100:3000/api/`, zato deluje tudi brez lokalno zagnane spletne storitve. Če želiš, da cilja na **lokalni** WebService (ali katerikoli drug naslov), nastavi okoljsko spremenljivko `VIRTUALESTATE_API_URL` **pred** zagonom:
 
 ```bash
-# Windows PowerShell
-$env:VIRTUALESTATE_API_URL = "http://moj-strežnik:3000/api/"
+# Windows PowerShell — lokalni razvoj
+$env:VIRTUALESTATE_API_URL = "http://localhost:3000/api/"
 ./gradlew :composeApp:run
 ```
 
 ```bash
-# Linux/macOS
-export VIRTUALESTATE_API_URL=http://moj-strežnik:3000/api/
+# Linux/macOS — lokalni razvoj
+export VIRTUALESTATE_API_URL=http://localhost:3000/api/
 ./gradlew :composeApp:run
 ```
+
+> 💡 Privzeta vrednost je definirana v `ApiClient.kt`. Manjkajočo zaključno poševnico (`/`) aplikacija doda samodejno.
 
 ## 2.5 Prva prijava
 
@@ -132,7 +136,7 @@ Sistem nima predhodno ustvarjenega *seed* admin uporabnika — moraš ga ustvari
 2. Vnesi:
    - **Ime** (poljubno)
    - **E-pošto** (mora biti edinstvena)
-   - **Geslo** (vsaj 4 znaki)
+   - **Geslo** (vsaj **8 znakov**, vsebovati mora vsaj eno črko in eno številko)
 3. Klikni **Registracija**. Po uspešni registraciji te sistem samodejno prijavi in preusmeri na nadzorno ploščo.
 
 ### 2.5.2 Pridobivanje admin pravic
