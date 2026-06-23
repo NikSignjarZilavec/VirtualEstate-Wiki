@@ -99,7 +99,7 @@ Iskanje "nepremičnine v polmeru 2 km od te točke" ali "nepremičnine znotraj o
   - `bbox=minLng,minLat,maxLng,maxLat` → 4-točkovni `$geoWithin Polygon`
   - `polygon=lng,lat;lng,lat;…` → poljubni `$geoWithin Polygon` (avtomatsko zapre)
   - `near=lng,lat,radius_v_metrih` → `$geoWithin $centerSphere` (radius v radianih)
-- Endpoint `GET /api/properties/search?lat&lng&distance` ohranja stari `$near` operator za enostavno radij iskanje.
+- Endpoint `GET /api/properties/search?lat&lng&distance` ohranja stari `$near` operator za preprosto iskanje po polmeru.
 
 **Frontend** (`WebClient/src/components/PropertyMap.jsx`):
 - Uporablja `leaflet-draw` (CDN CSS + import JS) za risarsko orodno vrstico.
@@ -144,12 +144,12 @@ function buildListFilter(query) {
 ```
 
 Escape funkcija:
-- Pokrije vse 13 regex meta-znakov: `. * + ? ^ $ { } ( ) | [ ] \`
+- Pokrije vseh 14 regex meta-znakov: `. * + ? ^ $ { } ( ) | [ ] \`
 - Uporabljena na **vseh** regex filtrih (ne samo opisu), ker so iste težave drugje (npr. mesto z imenom `St. Peter`).
 - Case-insensitive (`$options: 'i'`).
 
 **Frontend** (`PropertyFilters.jsx`):
-- Iskalno polje uporablja SVG ikono lupe (ne emoji, da je uskljajeno z ostalo ikonografijo).
+- Iskalno polje uporablja SVG ikono lupe (ne emoji, da je usklajeno z ostalo ikonografijo).
 - Input je v `<div className="search-field">` z absolutno pozicionirano ikono in left-padding na input.
 
 ### Način uporabe

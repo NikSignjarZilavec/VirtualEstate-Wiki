@@ -2,7 +2,7 @@
 
 ## 1.1 Namen projekta
 
-**VirtualEstate** je digitalni dvojček slovenskega nepremičninskega trga. Njegov osnovni namen je centralizirati in poenotiti razpršene podatke o nepremičninskih oglasih, jih vizualizirati v formatu, ki uporabnikom omogoča hiter pregled in primerjavo, ter zagotoviti administrativno orodje za ročno upravljanje baze.
+**VirtualEstate** je digitalni dvojček nepremičninskega trga. Njegov osnovni namen je centralizirati in poenotiti razpršene podatke o nepremičninskih oglasih, jih vizualizirati v formatu, ki uporabnikom omogoča hiter pregled in primerjavo, ter zagotoviti administrativno orodje za ročno upravljanje baze.
 
 Projekt naslavlja dva temeljna problema:
 
@@ -40,7 +40,7 @@ VirtualEstate sestavljajo **tri komponente**, ki komunicirajo prek REST API in W
 | Hitro filtriranje | Spletni vmesnik ponuja URL-sinhrone filtre (vrsta, regija, mesto, cena, velikost, opis) z odzivnim seznamom. |
 | Iskanje po besednih nizih v opisu | Backend uporablja MongoDB `$regex` z escape-om meta-znakov za varno iskanje (npr. "balkon"). |
 | Vizualizacija na zemljevidu | Leaflet zemljevid s clustering markerji in možnostjo risanja območja (`poligon`, `krog`); poizvedba uporabi `$geoWithin` in `$centerSphere` MongoDB operatorja. |
-| Analitične vizualizacije | Recharts grafi: število nepremičnin po tipu (pita), povprečna cena po tipu (stolpčni), razmerje cena-velikost (raztreseni). |
+| Analitične vizualizacije | Recharts grafi: število nepremičnin po tipu (tortni), povprečna cena po tipu (stolpčni), razmerje cena-velikost (raztreseni). |
 | Realnočasovne posodobitve | Socket.IO broadcasti dogodke `propertyCreated`, `propertyUpdated`, `propertyDeleted` vsem aktivnim odjemalcem. |
 | Ročno upravljanje baze | Spletni admin vmesnik in namizna aplikacija s polnim CRUD-om za nepremičnine in uporabnike. |
 | Generiranje testnih podatkov | Namizna aplikacija s parametri (število, razpon cene, razpon velikosti) generira namišljene nepremičnine na realnih slovenskih lokacijah. |

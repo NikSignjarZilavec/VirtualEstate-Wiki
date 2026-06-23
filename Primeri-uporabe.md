@@ -28,14 +28,14 @@ Iskalec stanovanja želi najti hišo ali stanovanje na določenem območju z dol
    - **Maks. cena (€)**: `200000`
    - **Min. velikost (m²)**: `80`
 
-5. **Aktivni filtri** se pojavijo kot odstranljive *pille* nad seznamom. Vsako lahko odstranite s klikom na `×`.
+5. **Aktivni filtri** se pojavijo kot odstranljive *značke* nad seznamom. Vsako lahko odstranite s klikom na `×`.
 
 6. **Pregled rezultatov**:
    - **Število zadetkov** je vidno v desnem zgornjem kotu (npr. `12 zadetkov`).
    - **Zemljevid** prikaže markerje samo za zadetke.
-   - **Seznam** je razdeljen v 2 stolpca × 3 vrstice (6 zadetkov/stran); na dnu so paginacijski gumbi.
+   - **Seznam** prikaže 6 zadetkov na stran; na dnu so paginacijski gumbi.
 
-7. **Kliknite na nepremičnino** v seznamu (če ima `propertyLink`, te odpre originalen oglas v novem zavihku).
+7. **Kliknite na nepremičnino** v seznamu (če ima `propertyLink`, se odpre izvirni oglas v novem zavihku).
 
 8. **Deljenje iskanja**: kopirajte URL iz brskalnika (`http://localhost:5173/?description=balkon&offerType=Prodaja&...`) in ga pošljite drugi osebi. Pri tej se odpre identično stanje filtrov.
 
@@ -68,7 +68,7 @@ Investitor želi videti **vse nepremičnine v določenem kraju** (npr. v polmeru
 4. **Vmesnik** prikaže modro obvestilo:
    > Aktivno območje na zemljevidu (krog) — prikazani so samo zadetki znotraj.
 
-5. **Pregled v seznamu** — paginiran seznam pod zemljevidom prikaže samo zadetke v izbrani regiji.
+5. **Pregled v seznamu** — paginiran seznam pod zemljevidom prikaže samo zadetke znotraj izbranega območja.
 
 6. **Kombinacija z drugimi filtri**: medtem ko je območni filter aktiven, lahko še naprej tipkate v iskalno polje ali odpirate razširjene filtre — vsi se kombinirajo z `AND` semantiko.
 
@@ -114,7 +114,7 @@ Administrator (npr. nepremičninska agencija) želi v sistem dodati nov oglas, k
 
 5. **Kliknite** **Ustvari**.
 
-6. **V trenutku** se v tabeli pod obrazcem pojavi nova vrstica. Hkrati se broadcast prek WebSocket-a sproži in vsi drugi aktivni odjemalci (vključno z navadnimi uporabniki na nadzorni plošči) takoj vidijo nov marker na zemljevidu in **toast obvestilo**:
+6. **V trenutku** se v tabeli pod obrazcem pojavi nova vrstica. Hkrati se prek WebSocket-a sproži oddaja dogodka, zato vsi drugi aktivni odjemalci (vključno z navadnimi uporabniki na nadzorni plošči) takoj vidijo nov marker na zemljevidu in **toast obvestilo**:
    > Nova nepremičnina: Stanovanje v Ljubljana
 
 7. **Urejanje** — kliknite **Uredi** v vrstici. Odpre se isti obrazec, pred-izpolnjen z obstoječimi vrednostmi.
@@ -157,8 +157,8 @@ Administrator želi v bazo uvoziti **več sto oglasov** s slovenskih nepremični
 5. **Sortirajte** s klikom na naslov stolpca (lokacija, tip, ponudba, m², cena). Drug klik obrne smer.
 
 6. **Označite zapise** za pošiljanje:
-   - **Posamično**: označite checkbox v vrstici.
-   - **Vse**: označite checkbox v glavi tabele.
+   - **Posamično**: označite potrditveno polje v vrstici.
+   - **Vse**: označite potrditveno polje v glavi tabele.
 
 7. **Kliknite** **Pošlji v bazo (N)** (gumb pokaže število izbranih). Aplikacija zaporedno pošlje vsak zapis prek `POST /api/properties/ingest`.
 
@@ -175,7 +175,7 @@ Baza je obogatena z aktualnimi oglasi iz dveh slovenskih portalov. Vsi imajo dod
 ## Primer 5 — Generiranje namišljenih podatkov za testiranje
 
 ### Kaj uporabnik želi narediti
-Razvijalec ali predavatelj želi v prazni bazi hitro generirati realno videti dataset za demonstracijo ali testiranje (npr. 50 nepremičnin v različnih slovenskih krajih).
+Razvijalec ali predavatelj želi v prazni bazi hitro generirati realističen nabor podatkov za demonstracijo ali testiranje (npr. 50 nepremičnin v različnih slovenskih krajih).
 
 ### Predpogoji
 - WebService je zagnan.
@@ -195,7 +195,7 @@ Razvijalec ali predavatelj želi v prazni bazi hitro generirati realno videti da
 3. **Kliknite** **Generiraj**. Aplikacija v trenutku ustvari 50 zapisov:
    - Lokacija je naključno izbrana iz seznama 8 slovenskih krajev z znano regijo, mestom in koordinatami (Ljubljana, Maribor, Kranj, Škofja Loka, Celje, Koper, Murska Sobota, Nova Gorica).
    - Naselje je naključno izbrano iz nabora za vsako mesto (npr. Ljubljana: Šiška, Bežigrad, Center, Vič, Moste).
-   - Koordinate dobijo majhno naključno *jitter* deviacijo (±0.01°), da se ne vsi markerji prekrivajo.
+   - Koordinate dobijo majhno naključno *jitter* deviacijo (±0,01°), da se markerji ne prekrivajo.
    - Tip ponudbe je naključno `Prodaja` ali `Oddaja`.
    - Vrsta nepremičnine je naključna iz 6 tipov (`Stanovanje`, `Hiša`, `Vikend`, `Poslovni prostor`, `Garaža`, `Parcela`).
    - Cena in m² sta naključna v okviru vaših razponov.
@@ -204,7 +204,7 @@ Razvijalec ali predavatelj želi v prazni bazi hitro generirati realno videti da
 
 5. **Označite**: privzeto so označeni vsi. Lahko odznačite tiste, ki vam niso všeč (npr. če je cena nerealna za tip).
 
-6. **Kliknite** **Pošlji v bazo (N)**. Tako kot pri scrapingu se zapisi zaporedno shranijo prek `POST /api/properties/ingest`.
+6. **Kliknite** **Pošlji v bazo (N)**. Tako kot pri razčlenjevanju se zapisi zaporedno shranijo prek `POST /api/properties/ingest`.
 
 7. **Status**:
    > Uspešno shranjenih 50 zapisov.
